@@ -2,7 +2,7 @@
 
 /**
  * @param {number[]} nums
- * @return {number}
+ * @return {number[]}
  */
 const removeDuplicates = (nums) => {
   const result = [nums[0]];
@@ -14,5 +14,8 @@ const removeDuplicates = (nums) => {
     }
   }
 
-  return result.length;
+  return result;
 };
+
+console.log(removeDuplicates([1,1,2]));
+console.log(removeDuplicates([0,0,1,1,1,2,2,3,3,4]));
