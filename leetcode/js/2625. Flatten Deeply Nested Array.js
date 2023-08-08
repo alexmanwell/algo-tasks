@@ -2,26 +2,33 @@
 
 /**
  * @param {any[]} arr
- * @param {number} maxDepth
+ * @param {number} depth
  * @return {any[]}
  */
-const flat = (arr, maxDepth) => {
-  if (maxDepth === 0) {
+const flat = (arr, depth) => {
+  if (depth === 0) {
     return arr;
   }
 
-  const stack = [{node: arr, depth: 0}];
-  let result = [];
-  while (stack.length !== 0) {
-    let {node: elements, depth: depth} = stack.pop();
-    for ()
+  let temp = [];
+  let count = 0;
+  while (depth !== 0) {
+    temp = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (Array.isArray(arr[i])) {
+        temp.push(...arr[i]);
+      } else {
+        temp.push(arr[i]);
+        count++;
+      }
+    }
+    arr = temp;
+    if (count === temp.length) {
+      break;
+    }
+    depth--;
+    count = 0;
   }
 
-  return result;
+  return arr;
 };
-
-//const arr = [1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]];
-//console.log(flat([...arr], 0));
-//console.log(flat([...arr], 1));
-const arr1 = [[1, 2, 3], [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]];
-console.log(flat(arr1, 2));
