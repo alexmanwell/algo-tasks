@@ -23,3 +23,29 @@ const nextBigger = (n) => {
 
   return parseInt(digits.join(''));
 };
+
+// another solution.
+const splitDigits = (d) => {
+  return String(d).split('')
+};
+
+const sortDigits = (d) => {
+  return Number(splitDigits(d).sort().join(''))
+};
+
+const reverseSortDigits = (d) => {
+  return Number(splitDigits(d).sort().reverse().join(''))
+};
+
+const nextBigger = (n) => {
+  if (n === reverseSortDigits(n)) return -1;
+
+  let nSorted = sortDigits(n);
+
+  while (true) {
+    n += 1;
+    if (sortDigits(n) === nSorted) return n
+  }
+};
+
+console.log(nextBigger(534976));
