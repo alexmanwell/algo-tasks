@@ -1,3 +1,5 @@
+// https://www.codewars.com/kata/57b06f90e298a7b53d000a86/train/javascript
+
 const queueTime = (customers, n) => {
   if (n <= 0) {
     throw new Error("Number of tills should be a positive integer.");
