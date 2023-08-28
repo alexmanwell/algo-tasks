@@ -11,3 +11,7 @@ const uniqueInOrder = (arr) => {
 
   return result;
 };
+
+// Another solution
+
+const uniqueInOrder = arr => [...arr].filter((item, index, arr) => item !== arr[index + 1]);
