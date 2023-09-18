@@ -19,3 +19,15 @@ const firstNonRepeatingLetter = (s) => {
     ? s.split("").find(letter => letter.toLowerCase() === uniqueFirstLetter)
     : "";
 };
+
+const firstNonRepeatingLetter = (s) => {
+  let result = "";
+  for (let letter in s) {
+    if (s.match(new RegExp(s[letter], "gi")).length === 1) {
+      result = s[letter];
+      break;
+    }
+  }
+
+  return result;
+};
