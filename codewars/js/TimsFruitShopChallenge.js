@@ -1,9 +1,20 @@
 // https://www.codewars.com/kata/652643925c042100247fffc6
 
-const BOX_CAPACITY = {
+const BOX_SIZE = {
   SINGLE: 1,
   TEN: 10,
-  HALF_OF_HUNDRED: 50
+  FIFTY: 50
+};
+
+const BOX_TYPE = new Map([
+  [BOX_SIZE.SINGLE, (item, amount) => `(${item.repeat(amount)})`],
+  [BOX_SIZE.TEN, (item) => `{${item}}`],
+  [BOX_SIZE.FIFTY, (item) => `[${item}]`]
+]);
+
+const addBoxToTier = (map, fruit, amount, size) => {
+  const box = BOX_TYPE.get(size)(fruit, amount);
+  map.set(size, map.has(size) ? map.get(size) + box : box);
 };
 
 const orderPlacementFruitsOnTheTiers = (tiers) => {
@@ -27,60 +38,32 @@ const fruitPack = (orders) => {
     order = order.split("");
     const listOfFruits = [];
     while (order.length) {
-      const index = order.findIndex(c => new RegExp(/[a-z]/).test(c));
+      const index = order.findIndex(c => new RegExp(/\D/).test(c));
       const fruits = order.slice(0, index + 1).join("");
       listOfFruits.push([fruits[fruits.length - 1], fruits.slice(0, fruits.length - 1)]);
       order = order.slice(index + 1);
     }
 
     const tier = new Map([
-      [BOX_CAPACITY.SINGLE, ""],
-      [BOX_CAPACITY.TEN, ""],
-      [BOX_CAPACITY.HALF_OF_HUNDRED, ""]
+      [BOX_SIZE.SINGLE, ""],
+      [BOX_SIZE.TEN, ""],
+      [BOX_SIZE.FIFTY, ""]
     ]);
     for (let [fruit, amount] of listOfFruits) {
-      while (amount !== 0) {
-        if (amount >= BOX_CAPACITY.HALF_OF_HUNDRED) {
-          tier.set(
-            BOX_CAPACITY.HALF_OF_HUNDRED,
-            tier.has(BOX_CAPACITY.HALF_OF_HUNDRED)
-              ? tier.get(BOX_CAPACITY.HALF_OF_HUNDRED) + `[${fruit}]`
-              : `[${fruit}]`
-          );
-          amount -= BOX_CAPACITY.HALF_OF_HUNDRED;
-        } else if (amount >= BOX_CAPACITY.TEN) {
-          tier.set(
-            BOX_CAPACITY.TEN,
-            tier.has(BOX_CAPACITY.TEN)
-              ? tier.get(BOX_CAPACITY.TEN) + `{${fruit}}`
-              : `{${fruit}}`
-          );
-          amount -= BOX_CAPACITY.TEN;
-        } else if (amount < BOX_CAPACITY.TEN) {
-          const str = `(${fruit.repeat(amount)})`;
-          tier.set(
-            BOX_CAPACITY.SINGLE,
-            tier.has(BOX_CAPACITY.SINGLE)
-              ? tier.get(BOX_CAPACITY.SINGLE) + str
-              : str
-          );
+      while (amount > 0) {
+        if (amount >= BOX_SIZE.FIFTY) {
+          addBoxToTier(tier, fruit, 0, BOX_SIZE.FIFTY);
+          amount -= BOX_SIZE.FIFTY;
+        } else if (amount >= BOX_SIZE.TEN) {
+          addBoxToTier(tier, fruit, 0,BOX_SIZE.TEN);
+          amount -= BOX_SIZE.TEN;
+        } else if (amount > 0 && amount < BOX_SIZE.TEN) {
+          addBoxToTier(tier, fruit, amount, BOX_SIZE.SINGLE);
           amount = 0;
-        } else {
-          tier.set(
-            BOX_CAPACITY.SINGLE,
-            tier.has(BOX_CAPACITY.SINGLE)
-              ? tier.get(BOX_CAPACITY.SINGLE)
-              : ""
-          );
         }
       }
     }
-
-    tiers.push(
-      [...tier.entries()]
-        .sort(([key1,], [key2,]) => key1 - key2)
-        .map(([, value]) => value)
-    );
+    tiers.push([...tier.entries()].map(([, value]) => value));
   }
 
   return orderPlacementFruitsOnTheTiers(tiers);
