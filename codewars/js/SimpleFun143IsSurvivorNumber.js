@@ -12,19 +12,3 @@ const survivor = (n) => {
 
   return isSurvivor;
 };
-
-/*
-const survivor = (n) => {
-  let isSurvivor = false;
-
-  return sequence.find(num => num === n);
-};
-*/
-
-console.log(survivor(1), true);
-console.log(survivor(13), true);
-console.log(survivor(8), false);
-console.log(survivor(134), false);
-console.log(survivor(289), true);
-console.log(survivor(100), true);
-console.log(survivor(9102299 ), true);
