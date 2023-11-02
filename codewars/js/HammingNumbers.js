@@ -1,5 +1,4 @@
 // https://www.codewars.com/kata/526d84b98f428f14a60008da
-// TODO: task solved. But tests don't pass on time limit.
 
 const HAMMING_NUMBERS = [2, 3, 5];
 
@@ -42,4 +41,27 @@ const hamming = (n) => {
   }
 
   return sequence[sequence.length - 1];
+};
+
+// another task solution. Better solution.
+const hamming = (n) => {
+  let sequence = [1];
+  let i2 = 0;
+  let i3 = 0;
+  let i5 = 0;
+  for (let i = 1; i < n; i++) {
+    let member = Math.min(2 * sequence[i2], 3 * sequence[i3], 5 * sequence[i5]);
+    sequence.push(member);
+    if (2 * sequence[i2] <= member) {
+      i2++;
+    }
+    if (3 * sequence[i3] <= member) {
+      i3++;
+    }
+    if (5 * sequence[i5] <= member) {
+      i5++;
+    }
+  }
+
+  return sequence[n - 1];
 };
