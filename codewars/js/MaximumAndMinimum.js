@@ -22,8 +22,8 @@ const findMin = (items) => {
   return min;
 };
 
-const max = (...items) => {
-  let max;
+const thing = (fn, ...items) => {
+  let result;
   items = items.flat(Number.MAX_SAFE_INTEGER).map(Number);
   if (items.length) {
     let isNumber = true;
@@ -35,29 +35,19 @@ const max = (...items) => {
     }
     if (isNumber) {
       items = items.map(Number);
-      max = findMax(items);
+      result = fn(items);
     }
   }
 
+  return result;
+};
+
+const max = (...items) => {
+  const max = thing(findMax, items);
   return items.length > 0 ? typeof max === "number" ? max : NaN : 0;
 };
 
 const min = (...items) => {
-  let min;
-  items = items.flat(Number.MAX_SAFE_INTEGER).map(Number);
-  let isNumber = true;
-  if (items.length) {
-    for (let item of items) {
-      if (!/\d/.test(item)) {
-        isNumber = false;
-      }
-    }
-  }
-
-  if (isNumber) {
-    items = items.map(Number);
-    min = findMin(items);
-  }
-
+  let min = thing(findMin, items);
   return items.length > 0 ? typeof min === "number" ? min : NaN : 0;
 };
