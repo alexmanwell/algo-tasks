@@ -32,3 +32,16 @@ const strongestEven = (n, m) => {
 
   return result;
 };
+
+// second solution. Better than previous solution.
+function strongestEven(n, m) {
+  let maxStrongness = 0;
+  let i = n;
+  let f = m;
+  while (f > i) {
+    i = i % 2 === 0 ? i / 2 : (i + 1) / 2;
+    f = f % 2 === 0 ? f / 2 : (f - 1) / 2;
+    maxStrongness++
+  }
+  return i * 2 ** maxStrongness;
+}
