@@ -1,7 +1,6 @@
 // https://www.codewars.com/kata/52f677797c461daaf7000740
-// TODO: find solutions. Tests pass, but tests don't pass time limit.
 
-const findMin = (numbers) => {
+const findMinValue = (numbers) => {
   let min = Number.MAX_SAFE_INTEGER;
   for (let i = 0; i < numbers.length; i++) {
     if (min > numbers[i] && numbers[i] !== 1) {
@@ -12,10 +11,10 @@ const findMin = (numbers) => {
   return min;
 };
 
-const isSame = (numbers) => {
-  const number = numbers[0];
+const isSameValues = (numbers) => {
+  const value = numbers[0];
   for (let i = 1; i < numbers.length; i++) {
-    if (numbers[i] !== number) {
+    if (numbers[i] !== value) {
       return false;
     }
   }
@@ -27,26 +26,28 @@ const solution = (numbers) => {
   if (numbers.find(n => n === 1)) {
     return numbers.length;
   }
-  if (isSame(numbers)) {
+  if (isSameValues(numbers)) {
     return numbers[0] * numbers.length;
   }
 
-  while (!isSame(numbers)) {
-    let min = findMin(numbers);
+  while (!isSameValues(numbers)) {
+    let min = findMinValue(numbers);
     for (let i = 0; i < numbers.length; i++) {
-      if (numbers[i] % min !== 0) {
-        numbers[i] = numbers[i] % min;
+      const value = numbers[i];
+      if (value % min !== 0) {
+        numbers[i] = value % min;
       }
-      if (numbers[i] !== min && numbers[i] % min === 0) {
-        numbers[i] = numbers[i] - min;
+      if (value !== min && value % min === 0) {
+        numbers[i] = min;
       }
-      if (numbers[i] !== min && min % numbers[i] === 0) {
+      if (value !== min && min % value === 0) {
         const index = numbers.indexOf(min);
-        numbers[index] = min - numbers[i];
+        numbers[index] = value;
         min = numbers[index];
+        i = 0;
       }
     }
   }
 
-  return numbers.reduce((acc, n) => acc + n);
+  return numbers[0] * numbers.length;
 };
