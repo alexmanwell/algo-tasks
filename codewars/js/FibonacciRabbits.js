@@ -12,3 +12,13 @@ const fib_rabbits = (n, b) => {
 
   return prev;
 };
+
+// another solution. Best solution.
+const fib_rabbits = (n, b) => {
+  let [mature, immature] = [0, 1];
+  for (let i = 0; i < n; i++) {
+    [mature, immature] = [immature + mature, mature * b];
+  }
+
+  return mature;
+};
