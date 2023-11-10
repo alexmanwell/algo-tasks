@@ -22,3 +22,17 @@ const stringExpansion = (s) => {
 
   return result;
 };
+
+// another solution. Better solution than previous.
+const stringExpansion = (s) => {
+  let number = 1;
+
+  return s.split("").map(char => {
+    if (!isNaN(char)) {
+      number = Number(char);
+      return "";
+    } else {
+      return char.repeat(number);
+    }
+  }).join("");
+};
