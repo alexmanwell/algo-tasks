@@ -16,3 +16,14 @@ const pell = (n) => {
 
   return current;
 };
+
+
+// another solution. Better solution than done above.
+const pell = (n) => {
+  let [prev, current] = [0n, 1n];
+  for (let i = 0; i < n - 1; i++) {
+    [prev, current] = [current, 2n * current + prev];
+  }
+
+  return current;
+};
