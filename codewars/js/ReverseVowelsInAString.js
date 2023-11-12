@@ -14,12 +14,7 @@ const reverseVowels = (str) => {
     return "";
   }
   const pattern = /[aeiouAEIOU]/g;
-  const vowels = str.match(new RegExp(pattern));
-  if (!vowels) {
-    return str;
-  }
-
-  vowels.reverse();
+  const vowels = (str.match(new RegExp(pattern)) || []).reverse();
   const letters = str.split("");
   let index = 0;
   for (let i = 0; i < letters.length; i++) {
