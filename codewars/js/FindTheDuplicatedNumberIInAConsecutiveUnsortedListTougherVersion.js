@@ -12,3 +12,14 @@ const findDup = (arr) => {
       v2 - v1
     )[0][0];
 };
+
+// Another solutions. Better solution then above.
+const findDup = (arr) => {
+  let index = 0;
+  let map = {};
+  while (!map[arr[index]]) {
+    map[arr[index++]] = true;
+  }
+
+  return arr[index];
+};
