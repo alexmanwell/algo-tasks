@@ -18,3 +18,17 @@ const cleanString = (str) => {
 
   return str;
 };
+
+// Another solution. I think this solution is very nice.
+const cleanString = (str) => {
+  let result = [];
+  for (let c of str) {
+    if (c === "#") {
+      result.pop();
+    } else {
+      result.push(c);
+    }
+  }
+
+  return result.join("");
+};
