@@ -10,3 +10,16 @@ const countCows = (n) => {
 
   return countCows(n - 1) + countCows(n - 3);
 };
+
+// iterative solution.
+const countCows = (n) => {
+  if (!Number.isInteger(n)) {
+    return null;
+  }
+  let [prev, current, next] = [1, 1, 1];
+  for (let i = 3; i <= n; i++) {
+    [prev, current, next] = [current, next, prev + next];
+  }
+
+  return next;
+};
