@@ -1,7 +1,7 @@
 // https://www.codewars.com/kata/587e18b97a25e865530000d8
 
 const ascendingSort = (str) => {
-  return str.split(" ").sort().join(" ");
+  return str.split("").sort().join("");
 };
 
 const compareStrings = (str1, str2) => {
