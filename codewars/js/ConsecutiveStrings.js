@@ -1,7 +1,13 @@
 // https://www.codewars.com/kata/56a5d994ac971f1ac500003e
 
-function longestConsec(strarr, k) {
-    const list = strarr.map((value, index) => strarr.slice(index, index + k).join(''));
-    const maxLength = (list) => { return list.reduce((max = "", el) => (max.length < el.length) ? el : max); }
-    return (k < 1 || k > strarr.length) ? "" : maxLength(list);
-}
+const longestConsec = (strarr, k) => {
+  let longest = "";
+  for (let i = 0; k > 0 && i <= strarr.length - k; i++) {
+    const tempStr = strarr.slice(i, i + k).join("");
+    if (longest.length < tempStr.length) {
+      longest = tempStr;
+    }
+  }
+
+  return longest;
+};
