@@ -34,3 +34,22 @@ const sumOrProduct = (arr) => {
 
   return arr.reduce((acc, n) => acc * n, 1);
 };
+
+// Best solution
+const sumOrProduct = (arr) => {
+  if (arr.length === 1) {
+    return arr[0];
+  }
+  arr = arr.sort();
+  if (arr[0] === 1) {
+    if (arr.indexOf(2) === -1) {
+      arr.push(arr.shift() + arr.shift());
+    } else {
+      arr.push(arr.shift() + arr.splice(arr.indexOf(2), 1)[0]);
+    }
+  } else {
+    arr.push(arr.shift() * arr.shift());
+  }
+
+  return sumOrProduct(arr);
+};
