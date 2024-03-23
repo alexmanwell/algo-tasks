@@ -18,3 +18,15 @@ const each = (n, xs) => {
 
   return result;
 };
+
+// Next solution
+const each = (n, xs) => {
+  if (n < 0) {
+    xs.reverse();
+  }
+  return n === 0
+    ? []
+    : xs.filter((num, index) => {
+      return (index + 1) % Math.abs(n) === 0;
+    });
+};
