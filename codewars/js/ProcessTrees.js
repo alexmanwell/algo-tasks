@@ -18,9 +18,9 @@ const makeProcessTree = (list) => {
 
   for (let obj of list) {
     if (obj.ppid !== -1) {
-      const index = children[obj.ppid];
+      const parent = children[obj.ppid];
       const child = obj.children ? obj.children : [];
-      list[index].children.push(new Process(obj.pid, child));
+      list[parent].children.push(new Process(obj.pid, child));
     } else {
       roots = new Process(obj.pid, obj.children);
     }
