@@ -1,5 +1,4 @@
 // https://leetcode.com/problems/ugly-number-ii
-// TODO: doesn't pass time limit tests.
 
 /**
  * @param {number} n
@@ -7,23 +6,25 @@
  */
 const nthUglyNumber = (n) => {
   const primes = [2, 3, 5];
-  let count = 0;
-  let candidate = 0;
-  while (count < n) {
-    let temp = ++candidate;
-    let index = 0;
-    while (temp > 1 && index < primes.length) {
-      if (temp % primes[index] !== 0) {
-        index++;
-      }
-      while (temp % primes[index] === 0) {
-        temp /= primes[index];
-      }
+  let factors = [0, 0, 0];
+  let primeFactors = [1];
+  while (primeFactors.length < n) {
+    let candidates = new Array(primes.length).fill(null);
+    for (let i = 0; i < primes.length; i++) {
+      candidates[i] = primeFactors[factors[i]] * primes[i];
     }
-    if (temp === 1) {
-      count++;
+    const min = Math.min(...candidates);
+    if (min === candidates[0]) {
+      factors[0]++;
     }
+    if (min === candidates[1]) {
+      factors[1]++;
+    }
+    if (min === candidates[2]) {
+      factors[2]++;
+    }
+    primeFactors.push(min);
   }
 
-  return candidate;
+  return primeFactors[primeFactors.length - 1];
 };
