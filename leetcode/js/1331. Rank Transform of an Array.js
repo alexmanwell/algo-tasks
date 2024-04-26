@@ -5,16 +5,29 @@
  * @return {number[]}
  */
 const arrayRankTransform = (arr) => {
-  let map = new Map();
-  for (let i = 0; i < arr.length; i++) {
-    map.set(arr[i], map.has(arr[i]) ? [...map.get(arr[i]), i] : [i]);
-  }
-  const sorted = [...map.entries()].sort(([k1, v1], [k2, v2]) => k1 - k2);
-  let ranks = new Array(arr.length).fill(null);
+  const sorted = [...arr].sort((a, b) => a - b);
+  let max = 0;
   for (let i = 0; i < sorted.length; i++) {
-    for (let index of sorted[i][1]) {
-      ranks[index] = i + 1;
+    if (i === 0 || sorted[i] !== sorted[i - 1]) {
+      sorted[max++] = sorted[i];
     }
+  }
+  const binary = (sorted, right, item) => {
+    let left = 0;
+    while (left < right) {
+      const middle = (left + right) >> 1;
+      if (sorted[middle] > item) {
+        right = middle;
+      } else {
+        left = middle + 1;
+      }
+    }
+
+    return left;
+  };
+  let ranks = [];
+  for (let i = 0; i < arr.length; i++) {
+    ranks.push(binary(sorted, max, arr[i]));
   }
 
   return ranks;
