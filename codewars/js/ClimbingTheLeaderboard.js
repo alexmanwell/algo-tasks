@@ -1,29 +1,27 @@
 // https://www.codewars.com/kata/5b19f34c7664aacf020000ec
-// TODO: tests don't pass time limit.
 
 const climbingLeaderboard = (scores, ranks) => {
-  let positions = [];
+  let positions = new Array(ranks.length).fill(-1);
   let position = 1;
-  let i = ranks.length - 1;
-  let rank = ranks[i];
-  let score = 0;
-  let j = 0;
-  while (i > 0) {
-    score = scores[j];
-    while (score === scores[j + 1]) {
-      j++;
-      score = scores[j];
+  let scoreIndex = 0;
+  let score = scores[scoreIndex];
+  let index = ranks.length - 1;
+  while (index >= 0) {
+    if (!score) {
+      positions[index] = position;
+      index--;
     }
-    while (score <= rank) {
-      positions.unshift(position);
-      i--;
-      rank = ranks[i];
+    if (ranks[index] >= score) {
+      positions[index] = position;
+      index--;
+    } else {
+      scoreIndex++;
+      const candidate = scores[scoreIndex];
+      if (score !== candidate) {
+        position++;
+      }
+      score = candidate;
     }
-    j++;
-    position++;
-  }
-  if (score > rank) {
-    positions.unshift(position);
   }
 
   return positions;
