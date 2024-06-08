@@ -5,14 +5,17 @@
  * @return {number[]}
  */
 const majorityElement = (nums) => {
-  let map = new Map();
-  for (let n of nums) {
-    map.set(n, (map.get(n) || 0) + 1);
-  }
+  nums = nums.sort((a, b) => a - b);
   let result = [];
-  for (let [num, amount] of map.entries()) {
-    if (amount > nums.length / 3) {
-      result.push(num);
+  let count = 1;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === nums[i + 1]) {
+      ++count;
+    } else {
+      if (count > nums.length / 3) {
+        result.push(nums[i]);
+      }
+      count = 1;
     }
   }
 
