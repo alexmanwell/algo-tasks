@@ -20,8 +20,7 @@ const countBeautifulPairs = (nums) => {
   let count = 0;
   for (let i = 0; i < nums.length - 1; i++) {
     for (let j = i + 1; j < nums.length; j++) {
-      const gcd1 = gcd(firstDigit(nums[i]), lastDigit(nums[j]));
-      if (gcd1 === 1) {
+      if (gcd(firstDigit(nums[i]), lastDigit(nums[j])) === 1) {
         ++count;
       }
     }
