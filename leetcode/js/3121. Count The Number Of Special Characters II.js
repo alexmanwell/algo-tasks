@@ -1,5 +1,4 @@
 // https://leetcode.com/problems/count-the-number-of-special-characters-ii
-// TODO: doesn't pass tests (time limit).
 
 /**
  * @param {string} word
@@ -8,34 +7,17 @@
 const numberOfSpecialChars = (word) => {
   let letters = word.split("");
   let count = 0;
+  let set = new Set();
   for (let i = 0; i < letters.length; i++) {
-    if ((letters[i] && letters[i] === letters[i].toLowerCase())) {
-      const letter = letters[i].toUpperCase();
-      let index = letters.lastIndexOf(letters[i], i + 1);
-      index = letters.indexOf(letter, i + 1);
-      if (index !== -1) {
-        const afterIndex = letters.indexOf(letters[i], index + 1);
-        if (afterIndex === -1) {
-          ++count;
-          while (index !== -1) {
-            letters[index] = null;
-            index = letters.indexOf(letter, index + 1);
-          }
-        } else {
-          while (index !== -1) {
-            letters[index] = null;
-            index = letters.indexOf(letter, index + 1);
-          }
-        }
+    const letter = letters[i];
+    const lowerLetter = letters[i].toLowerCase();
+    if (!set.has(lowerLetter) && letter === lowerLetter) {
+      set.add(letter);
+      const lastIndex = letters.lastIndexOf(letter)
+      const upperIndex = letters.indexOf(letter.toUpperCase());
+      if (lastIndex < upperIndex) {
+        ++count;
       }
-    } else {
-      let index = i;
-      const letter = letters[index];
-      while (index !== -1) {
-        letters[index] = null;
-        index = letters.indexOf(letter, index + 1);
-      }
-
     }
   }
 
