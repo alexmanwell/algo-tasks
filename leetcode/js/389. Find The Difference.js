@@ -19,3 +19,14 @@ const findTheDifference = (s, t) => {
 
   return [...map.entries()][0][0];
 };
+
+// Another solution. 
+const findTheDifference = (s, t) => {
+  let letters = t.split("");
+  for (const c of s) {
+    const index = letters.indexOf(c);
+    letters[index] = "";
+  }
+
+  return letters.join("");
+};
