@@ -5,16 +5,20 @@
  * @return {number}
  */
 const singleNumber = (nums) => {
-  let map = new Map();
+  let uniques = new Set();
+  let duplicates = new Array(Math.floor(nums.length / 3));
+  let index = 0;
   for (const n of nums) {
-    map.set(n, (map.get(n) || 0) + 1);
-  }
-  let unique = undefined;
-  for (const [k, v] of map.entries()) {
-    if (v === 1) {
-      unique = k;
-      break;
+    if (!duplicates.includes(n)) {
+      if (uniques.has(n)) {
+        duplicates[index] = n;
+        ++index;
+        uniques.delete(n);
+      } else {
+        uniques.add(n);
+      }
     }
   }
-  return unique;
+
+  return [...uniques][0];
 };
