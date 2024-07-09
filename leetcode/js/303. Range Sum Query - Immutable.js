@@ -3,24 +3,19 @@
 /**
  * @param {number[]} nums
  */
-class NumArray {
-  #nums;
+const NumArray = function (nums) {
+  const size = nums.length;
+  this.arr = Array(size + 1).fill(0);
+  for (let i = 0; i < size; ++i) {
+    this.arr[i + 1] = this.arr[i] + nums[i];
+  }
+};
 
-  constructor(nums) {
-    this.#nums = nums;
-  };
-
-  /**
-   * @param {number} left
-   * @param {number} right
-   * @return {number}
-   */
-  sumRange(left, right) {
-    let sum = 0;
-    for (let i = left; i <= right; i++) {
-      sum += this.#nums[i];
-    }
-
-    return sum;
-  };
-}
+/**
+ * @param {number} left
+ * @param {number} right
+ * @return {number}
+ */
+NumArray.prototype.sumRange = function (left, right) {
+  return this.arr[right + 1] - this.arr[left];
+};
