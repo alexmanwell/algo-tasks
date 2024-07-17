@@ -7,21 +7,16 @@
  */
 const countSubstrings = (s, c) => {
   let count = 0;
-  let currentIndex = s.indexOf(c);
-  let nextIndex = currentIndex - 1;
-  const lastIndex = s.lastIndexOf(c);
-  while (currentIndex <= lastIndex) {
-    nextIndex = s.indexOf(c, nextIndex + 1);
-    if (nextIndex !== -1) {
+  for (const letter of s) {
+    if (letter === c) {
       ++count;
-    } else {
-      currentIndex = s.indexOf(c, currentIndex + 1);
-      if (currentIndex === -1) {
-        break;
-      }
-      nextIndex = currentIndex - 1;
     }
   }
 
-  return count;
+  let result = 0;
+  for (let i = count; i > 0; i--) {
+    result += i;
+  }
+
+  return result;
 };
