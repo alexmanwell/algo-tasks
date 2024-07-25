@@ -7,21 +7,24 @@
  */
 const licenseKeyFormatting = (s, k) => {
   const keys = s.split("-").join("").toUpperCase();
-  let licenseKeys = [];
+  const partKeySize = Math.ceil(keys.length / k);
+  let partKeyIndex = partKeySize - 1;
+  let licenseKeys = new Array(partKeySize);
   let index = keys.length - 1;
   let count = 0;
-  let partKey = new Array(k).fill(null);
+  let partKey = new Array(k).fill(undefined);
   while (index >= 0) {
     if (count === k) {
-      licenseKeys.unshift(partKey.reverse().join(""));
+      licenseKeys[partKeyIndex] = (partKey);
+      --partKeyIndex;
       count = 0;
-      partKey = new Array(k).fill(null);
+      partKey = new Array(k).fill(undefined);
     }
     partKey[count] = keys[index];
     --index;
     ++count;
   }
-  licenseKeys.unshift(partKey.reverse().join(""));
+  licenseKeys[partKeyIndex] = partKey;
 
-  return licenseKeys.join("-");
+  return licenseKeys.map(key => key.reverse().join("")).join("-");
 };
