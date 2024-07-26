@@ -5,13 +5,7 @@
  * @return {number}
  */
 const findNumbers = (nums) => {
-  let count = 0;
-  for (const num of nums) {
-    const size = num.toString().length;
-    if (size % 2 === 0) {
-      ++count;
-    }
-  }
-
-  return count;
+  return nums.reduce((acc, num) => {
+    return (num.toString().length % 2 === 0) ? acc + 1 : acc;
+  }, 0)
 };
