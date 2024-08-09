@@ -10,15 +10,14 @@ const swap = (arr, i, j) => {
  * @return {string}
  */
 const getSmallestString = (s) => {
-  const digits = s.split("");
-  let differences = new Array(digits.length - 1).fill(null);
-  for (let i = digits.length - 1; i >= 1; i--) {
-    const prev = +digits[i - 1];
-    const current = +digits[i];
+  let differences = new Array(s.length - 1).fill(null);
+  for (let i = s.length - 1; i >= 1; i--) {
+    const prev = +s[i - 1];
+    const current = +s[i];
     if (current % 2 === prev % 2 && prev > current) {
-      differences[digits.length - 1 - i] =
+      differences[s.length - 1 - i] =
         Number(s.slice(i - 1)) -
-        Number(swap([...digits], i, i - 1).slice(i - 1).join(""));
+        Number(swap([...s], i, i - 1).slice(i - 1).join(""));
     }
   }
 
@@ -26,7 +25,7 @@ const getSmallestString = (s) => {
     const max = Math.max(...differences);
     const index = differences.length - 1 - differences.indexOf(max);
     return swap(
-      [...digits],
+      [...s],
       index + 1,
       index
     ).join("");
