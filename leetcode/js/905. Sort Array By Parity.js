@@ -5,8 +5,18 @@
  * @return {number[]}
  */
 const sortArrayByParity = (nums) => {
-  return [
-    ...nums.filter(n => n % 2 === 0),
-    ...nums.filter(n => n % 2 !== 0)
-  ];
+  let result = new Array(nums.length).fill(null);
+  let start = 0;
+  let end = nums.length - 1;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] % 2 === 0) {
+      result[start] = nums[i];
+      ++start;
+    } else {
+      result[end] = nums[i];
+      --end;
+    }
+  }
+
+  return result;
 };
