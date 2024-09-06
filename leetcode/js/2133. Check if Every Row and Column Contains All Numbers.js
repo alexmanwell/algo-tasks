@@ -10,6 +10,15 @@ const isValidNumbers = (arr) => {
   return true;
 };
 
+const getCol = (matrix, col) => {
+  let arr = [];
+  for (let i = 0; i < matrix.length; i++) {
+    arr.push(matrix[i][col]);
+  }
+
+  return arr.sort((a, b) => a - b);
+};
+
 /**
  * @param {number[][]} matrix
  * @return {boolean}
@@ -21,16 +30,8 @@ const checkValid = (matrix) => {
     if (!isValidNumbers(row)) {
       return false;
     }
-    const col = (matrix, col) => {
-      let arr = [];
-      for (let i = 0; i < size; i++) {
-        arr.push(matrix[i][col]);
-      }
-
-      return arr.sort((a, b) => a - b);
-    }
-    const arr1 = col(matrix, i);
-    if (!isValidNumbers(arr1)) {
+    const col = getCol(matrix, i);
+    if (!isValidNumbers(col)) {
       return false;
     }
   }
