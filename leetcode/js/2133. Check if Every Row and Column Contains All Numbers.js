@@ -1,38 +1,21 @@
 // https://leetcode.com/problems/check-if-every-row-and-column-contains-all-numbers
 
-const isValidNumbers = (arr) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] !== i + 1) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-const getCol = (matrix, col) => {
-  let arr = [];
-  for (let i = 0; i < matrix.length; i++) {
-    arr.push(matrix[i][col]);
-  }
-
-  return arr.sort((a, b) => a - b);
-};
-
 /**
  * @param {number[][]} matrix
  * @return {boolean}
  */
 const checkValid = (matrix) => {
   const size = matrix.length;
-  for (let i = 0; i < size; i++) {
-    const row = [...matrix[i]].sort((a, b) => a - b);
-    if (!isValidNumbers(row)) {
-      return false;
-    }
-    const col = getCol(matrix, i);
-    if (!isValidNumbers(col)) {
-      return false;
+  let rows = Array.from({length: size}, () => new Array(size).fill(false));
+  let cols = Array.from({length: size}, () => new Array(size).fill(false));
+  for (let row = 0; row < size; row++) {
+    for (let col = 0; col < size; col++) {
+      const value = matrix[row][col] - 1;
+      if (rows[row][value] || cols[col][value]) {
+        return false;
+      }
+      rows[row][value] = true;
+      cols[col][value] = true;
     }
   }
 
