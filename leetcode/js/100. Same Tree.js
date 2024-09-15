@@ -18,23 +18,17 @@ class TreeNode {
  * }
  */
 /**
- * @param {TreeNode} p
- * @param {TreeNode} q
+ * @param {TreeNode} tree1
+ * @param {TreeNode} tree2
  * @return {boolean}
  */
-const isSameTree = (p, q) => {
-  let stack = [[p, q]];
-  while (stack.length) {
-    let [node1, node2] = stack.pop();
-    if (node1 === null && node2 === null) {
-      return true;
-    }
-    if (node1 === null || node2 === null || node1.value !== node2.value) {
-      return false;
-    }
-    stack.push([node1.left, node2.left]);
-    stack.push([node1.right, node2.right]);
+const isSameTree = (tree1, tree2) => {
+  if (!tree1 && !tree2) {
+    return true;
+  }
+  if (tree1 === null || tree2 === null || tree1.value !== tree2.value) {
+    return false;
   }
 
-  return true;
+  return isSameTree(tree1.left, tree2.left) && isSameTree(tree1.right, tree2.right);
 };
